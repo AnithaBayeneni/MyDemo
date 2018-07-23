@@ -2,9 +2,6 @@ package mydemo.com.mydemo;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.inputmethodservice.Keyboard;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +12,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Ravi on 13/05/15.
- */
 public class SwipeListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
@@ -75,7 +68,7 @@ public class SwipeListAdapter extends BaseAdapter {
             tvDesc.setText(desc);
         }
         if (isEmptyString(image)) {
-            Picasso.with(activity).load(R.mipmap.dog).into(ivImage);
+            Picasso.with(activity).load(R.mipmap.ic_launcher).into(ivImage);
         } else {
             Picasso.with(activity).load(image).fit().placeholder(R.mipmap.ic_launcher).into(ivImage, new Callback() {
                 @Override
@@ -87,8 +80,6 @@ public class SwipeListAdapter extends BaseAdapter {
                 }
             });
         }
-
-
         return convertView;
     }
 

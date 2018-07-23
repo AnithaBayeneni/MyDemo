@@ -1,8 +1,8 @@
 package mydemo.com.mydemo;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private SwipeListAdapter adapter;
     private List<Rows> dataList;
 
-    // initially offset will be 0, later will be updated while parsing the json
-    private int offSet = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +48,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
          * As animation won't start on onCreate, post runnable is used
          */
         swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-                fetchData();
-                }
-            }
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+                                        fetchData();
+                                    }
+                                }
         );
 
     }
@@ -77,12 +75,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefreshLayout.setRefreshing(true);
 
         // appending offset to url
-        String url = JSON_URL ;
+        String url = JSON_URL;
 
         adapter.refreshList(dataList);
 
         // Volley's json array request object
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,url,null,
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -91,25 +89,28 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                         if (response.length() > 0) {
 
                             // looping through json and adding to movies list
-                          //  for (int i = 0; i < response.length(); i++) {
-                                try {
-                                    JSONObject movieObj = response;
-                                    String title = movieObj.getString("title");
-                                    JSONArray  jsonArray = movieObj.getJSONArray("rows");
-                                   // movieList = new ArrayList<>();
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        Rows rows = new Rows();
-                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                        rows.setTitle(jsonObject.getString("title"));
-                                        rows.setDescription(jsonObject.getString("description"));
-                                        rows.setImageHref(jsonObject.getString("imageHref"));
+                            //  for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject movieObj = response;
+                                String title = movieObj.getString("title");
+                                JSONArray jsonArray = movieObj.getJSONArray("rows");
+                                // movieList = new ArrayList<>();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    Rows rows = new Rows();
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    rows.setTitle(jsonObject.getString("title"));
+                                    rows.setDescription(jsonObject.getString("description"));
+                                    rows.setImageHref(jsonObject.getString("imageHref"));
+
+                                    if (dataList != null) {
                                         dataList.add(rows);
                                     }
-                                } catch (JSONException e) {
-                                    Log.e(TAG, "JSON Parsing error: " + e.getMessage());
                                 }
-                           // }
-                            Log.d(TAG,"size="+ dataList.size());
+                            } catch (JSONException e) {
+                                Log.e(TAG, "JSON Parsing error: " + e.getMessage());
+                            }
+                            // }
+                            Log.d(TAG, "size=" + dataList.size());
 
                             adapter.notifyDataSetChanged();
                         }
