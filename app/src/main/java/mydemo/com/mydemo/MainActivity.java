@@ -19,6 +19,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import mydemo.com.mydemo.adater.SwipeListAdapter;
+import mydemo.com.mydemo.model.Rows;
+
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private String TAG = MainActivity.class.getSimpleName();
 

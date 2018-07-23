@@ -1,4 +1,4 @@
-package mydemo.com.mydemo;
+package mydemo.com.mydemo.adater;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,9 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import mydemo.com.mydemo.R;
+import mydemo.com.mydemo.model.Rows;
 
 public class SwipeListAdapter extends BaseAdapter {
     private Activity activity;

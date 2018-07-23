@@ -1,4 +1,4 @@
-package mydemo.com.mydemo;
+package mydemo.com.mydemo.model;
 
 public class Rows {
     private String title;
