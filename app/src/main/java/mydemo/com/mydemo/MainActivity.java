@@ -7,8 +7,14 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -123,10 +129,23 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     }
                 }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Server Error: " + error.getMessage());
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.e(TAG, "Server Error: " + volleyError.getMessage());
 
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                String message = null;
+                if (volleyError instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (volleyError instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (volleyError instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (volleyError instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (volleyError instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (volleyError instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
 
                 // stopping swipe refresh
                 swipeRefreshLayout.setRefreshing(false);
