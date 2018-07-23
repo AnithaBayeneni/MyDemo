@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mydemo.com.mydemo.adater.SwipeListAdapter;
+import mydemo.com.mydemo.app.AppController;
 import mydemo.com.mydemo.model.Rows;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         });
 
         // Adding request to request queue
-        MyApplication.getInstance().addToRequestQueue(req);
+        AppController.getInstance().addToRequestQueue(req);
     }
 
 }
